@@ -27,7 +27,7 @@ public class CategoryRepository {
     }
 
     public Category insert(Category category) throws Exception {
-        String sql = "INSERT INTO category(id, image_url, name, description) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO category(image_url, name, description) VALUES (?, ?, ?)";
         int insert = jdbcTemplate.update(
             sql,
             category.getId(),

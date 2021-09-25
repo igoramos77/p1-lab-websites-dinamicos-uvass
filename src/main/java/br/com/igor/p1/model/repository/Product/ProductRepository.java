@@ -3,7 +3,6 @@ package br.com.igor.p1.model.repository.Product;
 import br.com.igor.p1.model.entity.Category;
 import br.com.igor.p1.model.entity.Product;
 import br.com.igor.p1.model.repository.Category.CategoryMapper;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.ArrayList;
@@ -17,9 +16,19 @@ public class ProductRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public ArrayList<Product> search(Integer id) throws Exception {
+        String sql = "SELECT * FROM product WHERE id = ?";
+        ArrayList<Product> search = (ArrayList<Product>) jdbcTemplate.query(sql, new ProductMapper(), id);
+
+        if (search.size() > 0) {
+            return (ArrayList<Product>) jdbcTemplate.query(sql, new Object[]{id}, new ProductMapper());
+        }
+        throw new Exception("Product id not found.");
+    }
+
     public ArrayList<Product> searchFilteredProduct(String name, Float minValue, Float maxValue) throws Exception {
         String sql = "SELECT * FROM product WHERE name LIKE ? AND unity_value >= ? AND unity_value <= ?";
-        ArrayList<Product> search = (ArrayList<Product>) jdbcTemplate.query(sql, new ProductMapper(), "%" + name + "%", minValue, maxValue);
+        ArrayList<Product> search = (ArrayList<Product>) jdbcTemplate.query(sql, new ProductMapper(), "%"+name+"%", minValue, maxValue);
 
         if(search.size() > 0) {
             return (ArrayList<Product>) jdbcTemplate.query(sql, new Object[]{name, minValue, maxValue}, new ProductMapper());
@@ -29,10 +38,9 @@ public class ProductRepository {
     }
 
     public Product insert(Product product) throws Exception {
-        String sql = "INSERT INTO product(id, name, description, image_url, created_at, update_at, unity_value) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO product(name, description, image_url, created_at, update_at, unity_value) VALUES (?, ?, ?, ?, ?, ?)";
         int insert = jdbcTemplate.update(
                 sql,
-                product.getId(),
                 product.getName(),
                 product.getDescription(),
                 product.getImage_url(),
@@ -42,10 +50,11 @@ public class ProductRepository {
         );
 
         if(insert == 1) {
+            Integer lastId = jdbcTemplate.queryForObject("select max(id) from product", Integer.class);
+
             for(Category category: product.getCategoryList()) {
-                jdbcTemplate.update("INSERT INTO productcategory(id, product_id, category_id) VALUES (?, ?, ?)",
-                    3,
-                    product.getId(),
+                jdbcTemplate.update("INSERT INTO productcategory(product_id, category_id) VALUES (?, ?)",
+                    lastId,
                     category.getId()
                 );
             }
@@ -56,9 +65,10 @@ public class ProductRepository {
                 "c.id = pc.category_id AND " +
                 "product_id = ?",
                 new CategoryMapper(),
-                product.getId()
+                lastId
             );
 
+            product.setId(lastId);
             product.setCategoryList(categoryList);
 
             return product;

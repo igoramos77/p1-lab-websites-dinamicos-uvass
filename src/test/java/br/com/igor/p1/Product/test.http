@@ -3,8 +3,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "id": 10,
-  "name": "Placa de Vídeo EVGA 4070 TI",
+  "name": "Placa Mãe Azus 720",
   "description": "Lorem ipsum",
   "image_url": "https://images.kabum.com.br/produtos/fotos/163879/placa-de-video-asus-rog-strix-rtx-3070-ti-o8g-gaming-19-gbps-8gb-gddr6x-ray-tracing-dlss-rgb-90yv0gw0-m0na00_1623333955_g.jpg",
   "created_at": "2021-09-25",
@@ -24,3 +23,11 @@ Accept: application/json
 
 GET http://localhost:8090/product?name=Placa%20de%20Vídeo%201050%20Ti&minValue=100.00&maxValue=10000.00
 Accept: application/json
+
+
+###
+
+GET http://localhost:8090/product/2
+Accept: application/json
+
+###
