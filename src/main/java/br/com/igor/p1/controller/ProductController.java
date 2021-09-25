@@ -24,7 +24,6 @@ public class ProductController {
         return productRepository.insert(product);
     }
 
-
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public ArrayList<Product> searchProduct(@RequestParam String name, @RequestParam Float minValue, @RequestParam Float maxValue) throws Exception {

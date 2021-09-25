@@ -14,7 +14,7 @@ public class ProductRepository {
     }
 
     public ArrayList<Product> searchFilteredProduct(String name, Float minValue, Float maxValue) throws Exception {
-        String sql = "SELECT * FROM produto WHERE name = ? AND unity_value >= ? AND unity_value <= ?";
+        String sql = "SELECT * FROM product WHERE name = ? AND unity_value >= ? AND unity_value <= ?";
         ArrayList<Product> search = (ArrayList<Product>) jdbcTemplate.query(sql, new Object[]{name, minValue, maxValue}, new ProductMapper());
 
         if(search.size() > 0) {
@@ -25,7 +25,7 @@ public class ProductRepository {
     }
 
     public Product insert(Product product) throws Exception {
-        String sql = "INSERT INTO produto(id, name, descriptiom, image_url, created_at, hour_create_at, update_at, unity_value) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO product(id, name, description, image_url, created_at, hour_create_at, update_at, unity_value) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         int insert = jdbcTemplate.update(
                 sql,
                 product.getId(),

@@ -3,6 +3,7 @@ package br.com.igor.p1.model.entity;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 public class Product {
@@ -66,7 +67,9 @@ public class Product {
     }
 
     public Timestamp getUpdate_at() {
-        return update_at;
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        return timestamp;
     }
 
     public void setUpdate_at(Timestamp update_at) {
