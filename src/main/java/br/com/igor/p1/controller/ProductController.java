@@ -1,5 +1,6 @@
 package br.com.igor.p1.controller;
 
+import br.com.igor.p1.model.entity.Category;
 import br.com.igor.p1.model.entity.Product;
 import br.com.igor.p1.model.repository.Product.ProductRepository;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")

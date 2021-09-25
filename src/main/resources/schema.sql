@@ -11,8 +11,13 @@ CREATE TABLE product (
      description     VARCHAR(500),
      image_url       VARCHAR(500)  NOT NULL,
      created_at      DATE          NOT NULL,
-     hour_create_at  TIME          NOT NULL,
      update_at       TIMESTAMP     NOT NULL,
      unity_value     FLOAT(5.2)    NOT NULL
+);
+
+CREATE TABLE productCategory (
+    id INT NOT NULL,
+    product_id INT NOT NULL,
+    category_id INT NOT NULL
 );
 

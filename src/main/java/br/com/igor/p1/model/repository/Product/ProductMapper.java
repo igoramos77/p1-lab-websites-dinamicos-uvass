@@ -16,7 +16,6 @@ public class ProductMapper implements RowMapper<Product> {
         product.setDescription(resultSet.getString("description"));
         product.setImage_url(resultSet.getString("image_url"));
         product.setCreated_at(resultSet.getDate("created_at").toLocalDate());
-        product.setHour_create_at(resultSet.getTime("hour_create_at").toLocalTime());
         product.setUpdate_at(resultSet.getTimestamp("update_at"));
         product.setUnity_value(resultSet.getFloat("unity_value"));
 

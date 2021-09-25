@@ -12,7 +12,6 @@ public class Product {
     private String description;
     private String image_url;
     private LocalDate created_at;
-    private LocalTime hour_create_at;
     private Timestamp update_at;
     private Float unity_value;
     private List<Category> categoryList;
@@ -56,14 +55,6 @@ public class Product {
 
     public void setCreated_at(LocalDate created_at) {
         this.created_at = created_at;
-    }
-
-    public LocalTime getHour_create_at() {
-        return hour_create_at;
-    }
-
-    public void setHour_create_at(LocalTime hour_create_at) {
-        this.hour_create_at = hour_create_at;
     }
 
     public Timestamp getUpdate_at() {
