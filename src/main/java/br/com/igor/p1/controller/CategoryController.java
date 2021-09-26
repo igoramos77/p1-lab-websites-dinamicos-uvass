@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -28,5 +29,10 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ArrayList<Category> searchById(@PathVariable Integer id) throws Exception {
         return categoryRepository.searchById(id);
+    }
+
+    @GetMapping("/{id}/product")
+    public List<Category> searchProductsForCategory(@PathVariable int id, @RequestParam(required = false) String name, Float minValue, Float maxValue) {
+        return categoryRepository.searchProductsForCategory(id, name, minValue, maxValue);
     }
 }

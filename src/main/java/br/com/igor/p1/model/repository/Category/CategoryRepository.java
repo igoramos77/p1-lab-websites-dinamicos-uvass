@@ -4,6 +4,7 @@ import br.com.igor.p1.model.entity.Category;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryRepository {
 
@@ -52,6 +53,41 @@ public class CategoryRepository {
         }
 
         throw new Exception("No categories found with this id");
+    }
+
+    public List<Category> searchProductsForCategory(Integer id, String name, Float minValue, Float maxValue) {
+        if (name == null && minValue == null && maxValue == null) {
+            return jdbcTemplate.query(
+                "select p.*, pc.category_id FROM product p " +
+                "INNER JOIN productCategory pc ON pc.product_id = p.id " +
+                "WHERE pc.category_id = ?",
+                new CategoryMapper(),
+                id
+            );
+        }
+        if (name != null && minValue == null && maxValue == null) {
+            return jdbcTemplate.query(
+            "select p.* FROM product p " +
+                "INNER JOIN productCategory pc ON pc.product_id = p.id " +
+                "WHERE pc.category_id = ? AND p.name = ?",
+                new CategoryMapper(),
+                id,
+                name
+            );
+        }
+        return jdbcTemplate.query(
+        "select p.*, pc.category_id FROM product p " +
+            "INNER JOIN productCategory pc ON pc.product_id = p.id " +
+            "WHERE pc.category_id = ? " +
+            "AND p.name LIKE ? " +
+            "AND p.unity_value >= ? " +
+            "AND p.unity_value <= ?",
+            new CategoryMapper(),
+            id,
+            name,
+            minValue,
+            maxValue
+        );
     }
 
 }

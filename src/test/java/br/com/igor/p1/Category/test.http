@@ -2,3 +2,11 @@ GET http://localhost:8090/category/2
 Accept: application/json
 
 ###
+
+GET http://localhost:8090/category/1/product
+Accept: application/json
+
+###
+
+GET http://localhost:8090/category/2/product?name=Placa%20de%20Vídeo%201050%20Ti&minValue=500.99&maxValue=3000.00
+Accept: application/json
