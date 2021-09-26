@@ -1,0 +1,4 @@
+GET http://localhost:8090/category/2
+Accept: application/json
+
+###

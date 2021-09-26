@@ -43,4 +43,15 @@ public class CategoryRepository {
         throw new Exception("Category not found");
     }
 
+    public ArrayList<Category> searchById(Integer id) throws Exception {
+        String sql = "SELECT * FROM category WHERE id = ?";
+        ArrayList<Category> search = (ArrayList<Category>) jdbcTemplate.query(sql, new CategoryMapper(), id);
+
+        if (search.size() > 0) {
+            return (ArrayList<Category>) jdbcTemplate.query(sql, new Object[]{id}, new CategoryMapper());
+        }
+
+        throw new Exception("No categories found with this id");
+    }
+
 }
