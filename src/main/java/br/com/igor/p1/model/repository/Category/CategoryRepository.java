@@ -65,6 +65,7 @@ public class CategoryRepository {
                 id
             );
         }
+
         if (name != null && minValue == null && maxValue == null) {
             return jdbcTemplate.query(
             "select p.* FROM product p " +
@@ -75,6 +76,21 @@ public class CategoryRepository {
                 name
             );
         }
+
+        if (name == null && minValue != null && maxValue != null) {
+            return jdbcTemplate.query(
+            "select p.*, pc.category_id FROM product p " +
+                "INNER JOIN productCategory pc ON pc.product_id = p.id " +
+                "WHERE pc.category_id = ? " +
+                "AND p.unity_value >= ? " +
+                "AND p.unity_value <= ?",
+                new CategoryMapper(),
+                id,
+                minValue,
+                maxValue
+            );
+        }
+
         return jdbcTemplate.query(
         "select p.*, pc.category_id FROM product p " +
             "INNER JOIN productCategory pc ON pc.product_id = p.id " +

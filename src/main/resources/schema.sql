@@ -10,7 +10,7 @@ CREATE TABLE product (
      name VARCHAR(255) NOT NULL,
      description VARCHAR(500),
      image_url VARCHAR(500) NOT NULL,
-     created_at DATE NOT NULL,
+     created_at TIMESTAMP NOT NULL,
      update_at TIMESTAMP NOT NULL,
      unity_value FLOAT(5.2) NOT NULL
 );
