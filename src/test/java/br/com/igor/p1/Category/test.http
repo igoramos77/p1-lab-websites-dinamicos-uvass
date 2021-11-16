@@ -10,6 +10,10 @@ Accept: application/json
 GET http://localhost:8050/category/1/product
 Accept: application/json
 
+### Seach products by slug
+GET http://localhost:8050/category/perifericos/products
+Accept: application/json
+
 ### Search by name, min value and max value
 GET http://localhost:8050/category/1/product?name=Placa%20de%20Vídeo%20Default&minValue=0&maxValue=3000.00
 Accept: application/json

@@ -46,4 +46,10 @@ public class CategoryController {
     public List<Product> searchProductsForCategory(@PathVariable int id, @RequestParam(required = false) String name, Float minValue, Float maxValue) {
         return categoryRepository.searchProductsForCategory(id, name, minValue, maxValue);
     }
+
+    @CrossOrigin("*")
+    @GetMapping("/{slug}/products")
+    public List<Product> searchProductsForSlug(@PathVariable String slug) {
+        return categoryRepository.searchProductsForSlug(slug);
+    }
 }

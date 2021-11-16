@@ -120,4 +120,15 @@ public class CategoryRepository {
         );
     }
 
+    public List<Product> searchProductsForSlug(String slug) {
+            return jdbcTemplate.query(
+                "select p.* FROM product p " +
+                    "INNER JOIN productCategory pc ON pc.product_id = p.id" +
+                    " INNER JOIN category c ON" +
+                    " c.id = pc.id WHERE c.slug = ?",
+                    new ProductMapper(),
+                    slug
+            );
+    }
+
 }
