@@ -1,6 +1,6 @@
 ### Create single product with categories list
 
-POST http://localhost:8090/product
+POST http://localhost:8050/product/
 Content-Type: application/json
 Accept: application/json
 
@@ -23,11 +23,11 @@ Accept: application/json
 
 ### Get product by name, min value and max value
 
-GET http://localhost:8090/product?name=Placa%20de%20Vídeo%201050%20Ti&minValue=100.00&maxValue=10000.00
+GET http://localhost:8050/product?name=Placa%20de%20Vídeo%201050%20Ti&minValue=100.00&maxValue=10000.00
 Accept: application/json
 
 
 ### Get product by id
 
-GET http://localhost:8090/product/2
+GET http://localhost:8050/product/2
 Accept: application/json

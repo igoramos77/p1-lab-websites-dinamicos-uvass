@@ -4,6 +4,7 @@ public class Category {
     private Integer id;
     private String image_url;
     private String name;
+    private String slug;
     private String description;
     private Administrator administrator;
 
@@ -26,6 +27,10 @@ public class Category {
     public String getName() {
         return name;
     }
+
+    public String getSlug() { return slug; }
+
+    public void setSlug(String slug) { this.slug = slug; }
 
     public void setName(String name) {
         this.name = name;

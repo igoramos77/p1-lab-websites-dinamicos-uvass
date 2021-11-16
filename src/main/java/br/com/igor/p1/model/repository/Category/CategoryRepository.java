@@ -1,6 +1,8 @@
 package br.com.igor.p1.model.repository.Category;
 
 import br.com.igor.p1.model.entity.Category;
+import br.com.igor.p1.model.entity.Product;
+import br.com.igor.p1.model.repository.Product.ProductMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.ArrayList;
@@ -12,28 +14,29 @@ public class CategoryRepository {
 
     public CategoryRepository(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
 
-    public ArrayList<Category> searchCategory(Integer id, String image_url, String name, String description) throws Exception {
-        String sql = "SELECT * FROM categoria";
+    public ArrayList<Category> searchCategory(Integer id, String image_url, String name, String slug, String description) throws Exception {
+        String sql = "SELECT * FROM category";
         ArrayList<Category> query = (ArrayList<Category>) jdbcTemplate.query(
             sql,
-            new Object[]{id, image_url, name, description},
+            new Object[]{id, image_url, name, slug, description},
             new CategoryMapper()
         );
 
         if(query.size() > 0) {
-            return (ArrayList<Category>) jdbcTemplate.query(sql, new Object[]{id, image_url, name, description}, new CategoryMapper());
+            return (ArrayList<Category>) jdbcTemplate.query(sql, new Object[]{id, image_url, name, slug, description}, new CategoryMapper());
         }
 
         throw new Exception("Category not found");
     }
 
     public Category insert(Category category) throws Exception {
-        String sql = "INSERT INTO category(image_url, name, description) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO category(image_url, name, slug, description) VALUES (?, ?, ?)";
         int insert = jdbcTemplate.update(
             sql,
             category.getId(),
             category.getImage_url(),
             category.getName(),
+            category.getSlug(),
             category.getDescription()
         );
 
@@ -42,6 +45,17 @@ public class CategoryRepository {
         }
 
         throw new Exception("Category not found");
+    }
+
+    public ArrayList<Category> searchAll() throws Exception {
+        String sql = "SELECT * FROM category";
+        ArrayList<Category> search = (ArrayList<Category>) jdbcTemplate.query(sql, new CategoryMapper());
+
+        if (search.size() > 0) {
+            return (ArrayList<Category>) jdbcTemplate.query(sql, new Object[]{}, new CategoryMapper());
+        }
+
+        throw new Exception("No categories found with this id");
     }
 
     public ArrayList<Category> searchById(Integer id) throws Exception {
@@ -55,13 +69,13 @@ public class CategoryRepository {
         throw new Exception("No categories found with this id");
     }
 
-    public List<Category> searchProductsForCategory(Integer id, String name, Float minValue, Float maxValue) {
+    public List<Product> searchProductsForCategory(Integer id, String name, Float minValue, Float maxValue) {
         if (name == null && minValue == null && maxValue == null) {
             return jdbcTemplate.query(
                 "select p.*, pc.category_id FROM product p " +
                 "INNER JOIN productCategory pc ON pc.product_id = p.id " +
                 "WHERE pc.category_id = ?",
-                new CategoryMapper(),
+                new ProductMapper(),
                 id
             );
         }
@@ -71,7 +85,7 @@ public class CategoryRepository {
             "select p.* FROM product p " +
                 "INNER JOIN productCategory pc ON pc.product_id = p.id " +
                 "WHERE pc.category_id = ? AND p.name = ?",
-                new CategoryMapper(),
+                new ProductMapper(),
                 id,
                 name
             );
@@ -84,7 +98,7 @@ public class CategoryRepository {
                 "WHERE pc.category_id = ? " +
                 "AND p.unity_value >= ? " +
                 "AND p.unity_value <= ?",
-                new CategoryMapper(),
+                new ProductMapper(),
                 id,
                 minValue,
                 maxValue
@@ -98,7 +112,7 @@ public class CategoryRepository {
             "AND p.name LIKE ? " +
             "AND p.unity_value >= ? " +
             "AND p.unity_value <= ?",
-            new CategoryMapper(),
+            new ProductMapper(),
             id,
             name,
             minValue,

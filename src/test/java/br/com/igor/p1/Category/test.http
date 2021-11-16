@@ -1,19 +1,23 @@
+### Search all categories
+GET http://localhost:8050/category/
+Accept: application/json
+
 ### Search by id
-GET http://localhost:8090/category/2
+GET http://localhost:8050/category/2
 Accept: application/json
 
 ### Seach products by category id
-GET http://localhost:8090/category/1/product
+GET http://localhost:8050/category/1/product
 Accept: application/json
 
 ### Search by name, min value and max value
-GET http://localhost:8090/category/1/product?name=Placa%20de%20Vídeo%20Default&minValue=0&maxValue=3000.00
+GET http://localhost:8050/category/1/product?name=Placa%20de%20Vídeo%20Default&minValue=0&maxValue=3000.00
 Accept: application/json
 
 ### Search by name only
-GET http://localhost:8090/category/1/product?name=Placa%20de%20Vídeo%20Default
+GET http://localhost:8050/category/1/product?name=Placa%20de%20Vídeo%20Default
 Accept: application/json
 
 ### Search only min value and max value
-GET http://localhost:8090/category/1/product?minValue=0&maxValue=10000.00
+GET http://localhost:8050/category/1/product?minValue=0&maxValue=10000.00
 Accept: application/json

@@ -2,6 +2,7 @@ CREATE TABLE category(
     id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     image_url VARCHAR (500) NOT NULL,
     name VARCHAR (155) NOT NULL,
+    slug VARCHAR (155) NOT NULL,
     description VARCHAR (500)
 );
 

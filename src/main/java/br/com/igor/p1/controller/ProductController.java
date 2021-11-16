@@ -24,12 +24,14 @@ public class ProductController {
         return productRepository.insert(product);
     }
 
+    @CrossOrigin("*")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public ArrayList<Product> searchProduct(@RequestParam String name, @RequestParam Float minValue, @RequestParam Float maxValue) throws Exception {
         return productRepository.searchFilteredProduct(name, minValue, maxValue);
     }
 
+    @CrossOrigin("*")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public ArrayList<Product> search(@PathVariable Integer id) throws Exception {
