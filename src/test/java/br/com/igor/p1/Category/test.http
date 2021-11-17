@@ -11,7 +11,7 @@ GET http://localhost:8050/category/1/product
 Accept: application/json
 
 ### Seach products by slug
-GET http://localhost:8050/category/perifericos/products
+GET http://localhost:8050/category/hardware/products
 Accept: application/json
 
 ### Search by name, min value and max value

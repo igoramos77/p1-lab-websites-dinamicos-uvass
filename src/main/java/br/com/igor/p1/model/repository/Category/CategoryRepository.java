@@ -125,7 +125,7 @@ public class CategoryRepository {
                 "select p.* FROM product p " +
                     "INNER JOIN productCategory pc ON pc.product_id = p.id" +
                     " INNER JOIN category c ON" +
-                    " c.id = pc.id WHERE c.slug = ?",
+                    " c.id = pc.category_id WHERE c.slug = ?",
                     new ProductMapper(),
                     slug
             );
